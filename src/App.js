@@ -1,23 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import { auth } from './firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function App() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { email, password } = event.target.elements;
+    createUserWithEmailAndPassword(auth, email.value, password.value);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>ユーザ登録</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>メールアドレス</label>
+          <input name="email" type="email" placeholder="email" />
+        </div>
+        <div>
+          <label>パスワード</label>
+          <input name="password" type="password" />
+        </div>
+        <div>
+          <button>登録</button>
+        </div>
+      </form>
     </div>
   );
 }
